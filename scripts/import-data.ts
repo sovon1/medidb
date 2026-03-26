@@ -74,7 +74,7 @@ async function batchInsert(model: any, data: any[], batchSize = 100) {
 
 async function importData() {
   console.log('Starting data import...')
-  const uploadDir = '/home/z/my-project/upload'
+  const uploadDir = path.resolve(process.cwd(), 'upload')
 
   // Import Drug Classes
   console.log('Importing drug classes...')
