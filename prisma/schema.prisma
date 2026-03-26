@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Medicine {
+  id              Int    @id
+  brandName       String
+  type            String
+  slug            String
+  dosageForm      String
+  generic         String
+  strength        String
+  manufacturer    String
+  packageContainer String?
+  packageSize     String?
+  genericId       Int?
+  
+  @@index([brandName])
+  @@index([generic])
+  @@index([manufacturer])
+}
+
+model Generic {
+  id                          Int      @id
+  name                        String
+  slug                        String
+  monographLink               String?
+  drugClass                   String?
+  indication                  String?
+  indicationDescription       String?
+  therapeuticClassDescription String?
+  pharmacologyDescription     String?
+  dosageDescription           String?
+  administrationDescription   String?
+  interactionDescription      String?
+  contraindicationsDescription String?
+  sideEffectsDescription      String?
+  pregnancyLactationDescription String?
+  precautionsDescription      String?
+  pediatricUsageDescription   String?
+  overdoseEffectsDescription  String?
+  durationOfTreatmentDescription String?
+  reconstitutionDescription   String?
+  storageConditionsDescription String?
+  descriptionsCount           Int      @default(0)
+  
+  @@index([name])
+  @@index([drugClass])
+}
+
+model DrugClass {
+  id            Int    @id
+  name          String
+  slug          String
+  genericsCount Int    @default(0)
+  
+  @@index([name])
+}
+
+model Indication {
+  id            Int    @id
+  name          String
+  slug          String
+  genericsCount Int    @default(0)
+  
+  @@index([name])
+}
+
+model DosageForm {
+  id              Int    @id
+  name            String
+  slug            String
+  brandNamesCount Int    @default(0)
+  
+  @@index([name])
+}
+
+model Manufacturer {
+  id            Int    @id
+  name          String
+  slug          String
+  genericsCount Int    @default(0)
+  brandNamesCount Int  @default(0)
+  
+  @@index([name])
+}
